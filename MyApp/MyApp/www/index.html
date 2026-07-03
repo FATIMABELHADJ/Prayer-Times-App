@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>مواقيت الصلاة</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3B2166">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="phone" id="phone">
+
+<!-- ========== الصفحة الرئيسية ========== -->
+<div class="page" id="homeView">
+  <div class="hero">
+    <div class="stars" id="stars"></div>
+    <div class="topbar">
+      <div>
+        <div class="hijri" id="hijriDate">-- --- ----</div>
+        <div class="gregorian" id="gregDate">-- --- ----</div>
+      </div>
+      <button class="city-btn" id="cityBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span id="cityLabel">تحديد المدينة</span>
+      </button>
+    </div>
+
+    <div class="prayer-focus">
+      <div class="label">الصلاة الحالية</div>
+      <div class="name" id="currentPrayerName">—</div>
+      <div class="sub" id="currentPrayerSub">جارِ التحميل...</div>
+    </div>
+
+    <div class="countdown-ring">
+      <svg width="120" height="120">
+        <circle class="ring-bg" cx="60" cy="60" r="52" stroke-width="7" fill="none"/>
+        <circle class="ring-fg" id="ringFg" cx="60" cy="60" r="52" stroke-width="7" fill="none" stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+      </svg>
+      <div class="ring-text">
+        <div class="t" id="countdownText">--:--</div>
+        <div class="l">للصلاة القادمة</div>
+      </div>
+    </div>
+
+    <svg class="skyline" viewBox="0 0 390 70" preserveAspectRatio="none">
+      <path fill="#2B1854" d="M0,70 L0,45 Q10,45 10,35 Q10,25 20,25 Q20,15 30,15 Q30,8 40,8 Q40,15 50,15 Q50,25 60,25 Q60,35 70,35 L70,45 L90,45 L90,30 Q95,30 95,20 L100,10 L105,20 Q105,30 110,30 L110,45 L150,45 L150,20 Q155,20 155,12 Q155,4 165,4 Q165,12 175,12 Q175,20 180,20 L180,45 L210,45 L210,20 Q215,20 215,12 Q215,4 225,4 Q225,12 235,12 Q235,20 240,20 L240,45 L280,45 L280,30 Q285,30 285,20 L290,10 L295,20 Q295,30 300,30 L300,45 L320,45 L320,35 Q330,35 330,25 Q330,15 340,15 Q340,25 350,25 Q350,35 360,35 L360,45 L390,45 L390,70 Z"/>
+    </svg>
+  </div>
+
+  <div class="sheet">
+    <div class="times-row" id="timesRow"></div>
+
+    <div class="grid">
+      <div class="tile" onclick="navigateTo('home')">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5A3596" stroke-width="1.8"><path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-6h6v6"/><path d="M12 3v3"/></svg></div>
+        <div class="tname">مواقيت الصلاة</div>
+      </div>
+      <div class="tile" onclick="navigateTo('quran')">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5A3596" stroke-width="1.8"><path d="M4 19V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 0-2-2z"/><path d="M8 7h9M8 11h9"/></svg></div>
+        <div class="tname">القرآن الكريم</div>
+      </div>
+      <div class="tile" onclick="navigateTo('hadith')">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5A3596" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+        <div class="tname">الأحاديث</div>
+      </div>
+      <div class="tile" onclick="navigateTo('qibla')">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5A3596" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 12 16 8"/><circle cx="12" cy="12" r="1.4" fill="#5A3596"/></svg></div>
+        <div class="tname">اتجاه القبلة</div>
+      </div>
+      <div class="tile" onclick="navigateTo('adhkar')">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5A3596" stroke-width="1.8"><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="7" r="2.5"/><circle cx="12" cy="14" r="2.5"/><path d="M12 16.5V21"/></svg></div>
+        <div class="tname">الأذكار</div>
+      </div>
+      <div class="tile" onclick="navigateTo('dua')">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5A3596" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+        <div class="tname">الأدعية</div>
+      </div>
+      <div class="tile" onclick="navigateTo('settings')">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5A3596" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        <div class="tname">الإعدادات</div>
+      </div>
+    </div>
+
+    <div class="navbar" style="justify-content:center;">
+      <div class="nav-item active" onclick="navigateTo('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== القرآن ========== -->
+<div class="page hidden" id="quranView">
+  <div class="page-header">
+    <div class="back-btn" onclick="quranBack()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>
+    <div class="page-title" id="quranTitle">القرآن الكريم</div>
+  </div>
+  <div class="page-body" id="quranBody">
+    <div style="text-align:center; color:var(--muted); font-size:13px; padding:30px 0;">جارِ التحميل...</div>
+  </div>
+</div>
+
+<!-- ========== الأذكار ========== -->
+<div class="page hidden" id="adhkarView">
+  <div class="page-header">
+    <div class="back-btn" onclick="navigateTo('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>
+    <div class="page-title">الأذكار والتسبيح</div>
+  </div>
+  <div class="page-body">
+    <div class="dhikr-tabs" id="dhikrTabs"></div>
+    <div id="dhikrList"></div>
+    <div class="tasbih-box">
+      <div class="tasbih-circle" id="tasbihCircle" onclick="tasbihTap()">
+        <div class="n" id="tasbihCount">0</div>
+        <div class="l">اضغط للتسبيح</div>
+      </div>
+      <div class="tasbih-targets" id="tasbihTargets"></div>
+      <div class="tasbih-reset" onclick="tasbihReset()">إعادة تصفير</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== القبلة ========== -->
+<div class="page hidden" id="qiblaView">
+  <div class="page-header">
+    <div class="back-btn" onclick="navigateTo('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>
+    <div class="page-title">اتجاه القبلة</div>
+  </div>
+  <div class="page-body">
+    <div class="qibla-box">
+      <div class="compass-wrap">
+        <div class="compass-dial" id="compassDial">
+          <div class="qibla-needle" id="qiblaNeedle"></div>
+          <div class="compass-center"></div>
+        </div>
+      </div>
+      <div class="qibla-info">
+        <div class="qibla-deg" id="qiblaDeg">--°</div>
+        <div class="qibla-sub" id="qiblaSub">حدد موقعك لمعرفة اتجاه القبلة</div>
+      </div>
+      <button class="qibla-btn" id="qiblaBtn" onclick="startQibla()">تفعيل البوصلة</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== الأحاديث ========== -->
+<div class="page hidden" id="hadithView">
+  <div class="page-header">
+    <div class="back-btn" onclick="navigateTo('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>
+    <div class="page-title">الأربعون النووية</div>
+  </div>
+  <div class="page-body">
+    <div id="hadithContainer"></div>
+  </div>
+</div>
+
+<!-- ========== الأدعية (جديد) ========== -->
+<div class="page hidden" id="duaView">
+  <div class="page-header">
+    <div class="back-btn" onclick="navigateTo('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>
+    <div class="page-title">الأدعية المأثورة</div>
+  </div>
+  <div class="page-body">
+    <div class="dhikr-tabs" id="duaTabs"></div>
+    <div id="duaList"></div>
+  </div>
+</div>
+
+<!-- ========== الإعدادات ========== -->
+<div class="page hidden" id="settingsView">
+  <div class="page-header">
+    <div class="back-btn" onclick="navigateTo('home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </div>
+    <div class="page-title">الإعدادات</div>
+  </div>
+  <div class="page-body">
+    <div class="settings-group">
+      <div class="settings-label">عام</div>
+      <div class="settings-row" onclick="document.getElementById('cityBtn').click()">
+        <div>
+          <div class="rtext">المدينة</div>
+          <div class="rsub" id="settingsCityLabel">الجزائر العاصمة</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="stroke:var(--muted)" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      </div>
+      <div class="settings-row">
+        <div>
+          <div class="rtext">الوضع الليلي</div>
+          <div class="rsub">مريح أكثر للعين ليلاً</div>
+        </div>
+        <div class="switch" id="darkSwitch" onclick="toggleDark()"></div>
+      </div>
+      <div class="settings-row">
+        <div>
+          <div class="rtext">تنبيهات الصلاة</div>
+          <div class="rsub">إشعار عند دخول وقت كل صلاة</div>
+        </div>
+        <div class="switch" id="notifSwitch" onclick="toggleNotif()"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== شريط الأذان (جديد) ===== -->
+<div class="adhan-banner" id="adhanBanner">
+  <span id="adhanBannerText">🔊 حان وقت الصلاة</span>
+  <button class="adhan-stop-btn" onclick="stopAdhan()">✕</button>
+</div>
+
+<!-- ===== المكونات العامة ===== -->
+<div class="loading-overlay" id="loadingOverlay">جارِ تحديث المواقيت...</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3>اختر المدينة</h3>
+    <input type="text" id="citySearch" placeholder="ابحث عن مدينة...">
+    <div class="city-list" id="cityList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+</div> <!-- نهاية .phone -->
+
+<script src="script.js"></script>
+</body>
+</html>
